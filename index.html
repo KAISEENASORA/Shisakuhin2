@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#090b16" />
+    <title>Skyfall Dodge</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">ARCADE // 01</p>
+          <h1>SKYFALL</h1>
+        </div>
+        <button class="icon-button" id="pauseButton" type="button" aria-label="Pause game">
+          <span id="pauseIcon">Ⅱ</span>
+        </button>
+      </header>
+
+      <section class="game-card" aria-label="Skyfall Dodge game">
+        <canvas id="gameCanvas"></canvas>
+
+        <div class="hud" aria-live="polite">
+          <div class="hud-block">
+            <span>SCORE</span>
+            <strong id="score">00000</strong>
+          </div>
+          <div class="hud-block hud-block-right">
+            <span>BEST</span>
+            <strong id="best">00000</strong>
+          </div>
+        </div>
+
+        <div class="overlay" id="overlay">
+          <div class="overlay-panel">
+            <p class="eyebrow" id="overlayEyebrow">DODGE THE DROP</p>
+            <h2 id="overlayTitle">READY?</h2>
+            <p id="overlayText">Move left and right to survive.</p>
+            <button class="primary-button" id="startButton" type="button">
+              START GAME <span>→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="controls">
+        <button class="control-button" id="leftButton" type="button" aria-label="Move left">←</button>
+        <p><span>A</span> / <span>D</span> OR <span>←</span> / <span>→</span></p>
+        <button class="control-button" id="rightButton" type="button" aria-label="Move right">→</button>
+      </footer>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

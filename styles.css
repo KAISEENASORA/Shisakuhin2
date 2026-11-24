@@ -1,0 +1,270 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&family=Manrope:wght@700;800&display=swap");
+
+:root {
+  color-scheme: dark;
+  --ink: #090b16;
+  --panel: #111426;
+  --line: rgba(255, 255, 255, 0.12);
+  --text: #f4f2ea;
+  --muted: #9699a8;
+  --accent: #ffdf64;
+  --danger: #ff5b73;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(83, 91, 180, 0.12), transparent 25rem),
+    var(--ink);
+  color: var(--text);
+  font-family: "Manrope", sans-serif;
+}
+
+button {
+  font: inherit;
+}
+
+.game-shell {
+  width: min(92vw, 720px);
+  padding: 28px 0 20px;
+}
+
+.topbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--accent);
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(28px, 7vw, 42px);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+}
+
+.icon-button {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: 160ms ease;
+}
+
+.icon-button:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.game-card {
+  position: relative;
+  height: min(66vh, 650px);
+  min-height: 440px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    #0d1020;
+  background-size: 40px 40px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+}
+
+#gameCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hud {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  left: 20px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.hud-block {
+  display: grid;
+  gap: 2px;
+  font-family: "DM Mono", monospace;
+}
+
+.hud-block-right {
+  text-align: right;
+}
+
+.hud-block span {
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+}
+
+.hud-block strong {
+  font-size: 18px;
+  letter-spacing: 0.05em;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(9, 11, 22, 0.62);
+  backdrop-filter: blur(7px);
+  transition: opacity 180ms ease;
+}
+
+.overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.overlay-panel {
+  width: min(82%, 340px);
+  text-align: center;
+}
+
+.overlay-panel .eyebrow {
+  margin-bottom: 10px;
+}
+
+.overlay-panel h2 {
+  margin: 0;
+  font-size: clamp(48px, 12vw, 82px);
+  line-height: 0.9;
+  letter-spacing: -0.07em;
+}
+
+.overlay-panel > p:not(.eyebrow) {
+  margin: 18px 0 24px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 210px;
+  height: 52px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #14140f;
+  font-family: "DM Mono", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(255, 223, 100, 0.12);
+  transition: 150ms ease;
+}
+
+.primary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(255, 223, 100, 0.2);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+}
+
+.controls p {
+  color: var(--muted);
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.controls p span {
+  color: var(--text);
+}
+
+.control-button {
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text);
+  font-size: 20px;
+  cursor: pointer;
+  touch-action: none;
+  transition: 100ms ease;
+}
+
+.control-button:active,
+.control-button.pressed {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--ink);
+  transform: scale(0.94);
+}
+
+@media (max-width: 560px) {
+  .game-shell {
+    width: 100%;
+    min-height: 100dvh;
+    padding: 18px 14px 8px;
+  }
+
+  .game-card {
+    height: calc(100dvh - 184px);
+    min-height: 420px;
+  }
+
+  .controls {
+    height: 68px;
+  }
+}
+
+@media (max-height: 650px) {
+  .game-shell {
+    padding-top: 12px;
+  }
+
+  .game-card {
+    height: calc(100dvh - 150px);
+    min-height: 380px;
+  }
+
+  .controls {
+    height: 58px;
+  }
+
+  .control-button {
+    width: 44px;
+    height: 44px;
+  }
+}
