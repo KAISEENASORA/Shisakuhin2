@@ -108,17 +108,19 @@ function endGame() {
 
 function spawnObstacle() {
   const size = 18 + Math.random() * 24;
-  const horizontal = Math.random() < 0.3;
+  const horizontal = Math.random() < 0.4;
   const speed = 150 + Math.random() * 110 + elapsed * 2.2;
   const obstacle = {
     x: horizontal
       ? (Math.random() < 0.5 ? -size / 2 : width + size / 2)
       : size / 2 + Math.random() * (width - size),
-    y: horizontal ? size + Math.random() * (height - size * 2) : -size,
+    y: horizontal
+      ? Math.max(size, Math.min(height - size, player.y + (Math.random() - 0.5) * 90))
+      : -size,
     w: size,
     h: size,
     vx: 0,
-    vy: horizontal ? (Math.random() - 0.5) * 70 : speed,
+    vy: horizontal ? (Math.random() - 0.5) * 36 : speed,
     spin: (Math.random() - 0.5) * 2,
     angle: Math.random() * Math.PI,
     type: Math.random() > 0.72 ? "spike" : "block"
