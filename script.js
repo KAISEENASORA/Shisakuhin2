@@ -9,6 +9,7 @@ const pauseButton = document.getElementById("pauseButton");
 const pauseIcon = document.getElementById("pauseIcon");
 const scoreElement = document.getElementById("score");
 const bestElement = document.getElementById("best");
+const timeLeftElement = document.getElementById("timeLeft");
 const leftButton = document.getElementById("leftButton");
 const rightButton = document.getElementById("rightButton");
 const upButton = document.getElementById("upButton");
@@ -34,6 +35,13 @@ bestElement.textContent = formatScore(best);
 
 function formatScore(value) {
   return Math.floor(value).toString().padStart(5, "0");
+}
+
+function formatTime(seconds) {
+  const totalSeconds = Math.ceil(seconds);
+  const minutes = Math.floor(totalSeconds / 60);
+  const remainingSeconds = String(totalSeconds % 60).padStart(2, "0");
+  return `${minutes}:${remainingSeconds}`;
 }
 
 function resize() {
@@ -62,6 +70,7 @@ function resetGame() {
   score = 0;
   player = { x: width / 2, y: height - 70, w: 34, h: 34, angle: 0 };
   scoreElement.textContent = "00000";
+  timeLeftElement.textContent = formatTime(GOAL_TIME);
 }
 
 function startGame() {
@@ -139,6 +148,10 @@ function spawnObstacle() {
 
 function update(dt) {
   elapsed += dt;
+  const timeLeft = formatTime(Math.max(0, GOAL_TIME - elapsed));
+  if (timeLeftElement.textContent !== timeLeft) {
+    timeLeftElement.textContent = timeLeft;
+  }
   player.angle += dt * 4;
   score += dt * 10;
   scoreElement.textContent = formatScore(score);

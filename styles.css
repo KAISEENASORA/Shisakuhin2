@@ -105,8 +105,8 @@ h1 {
   top: 18px;
   right: 20px;
   left: 20px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   pointer-events: none;
 }
 
@@ -118,6 +118,10 @@ h1 {
 
 .hud-block-right {
   text-align: right;
+}
+
+.hud-block-center {
+  text-align: center;
 }
 
 .hud-block span {
