@@ -11,8 +11,10 @@ const scoreElement = document.getElementById("score");
 const bestElement = document.getElementById("best");
 const leftButton = document.getElementById("leftButton");
 const rightButton = document.getElementById("rightButton");
+const upButton = document.getElementById("upButton");
+const downButton = document.getElementById("downButton");
 
-const keys = { left: false, right: false };
+const keys = { left: false, right: false, up: false, down: false };
 let width = 0;
 let height = 0;
 let player;
@@ -46,7 +48,7 @@ function resize() {
     player = { x: width / 2, y: height - 70, w: 34, h: 34 };
   } else {
     player.x = Math.max(player.w / 2, Math.min(width - player.w / 2, player.x));
-    player.y = height - 70;
+    player.y = Math.max(player.h / 2, Math.min(height - player.h / 2, player.y));
   }
   draw();
 }
@@ -138,8 +140,12 @@ function update(dt) {
   scoreElement.textContent = formatScore(score);
 
   const direction = (keys.right ? 1 : 0) - (keys.left ? 1 : 0);
-  player.x += direction * (330 + elapsed * 2) * dt;
+  const verticalDirection = (keys.down ? 1 : 0) - (keys.up ? 1 : 0);
+  const speed = (330 + elapsed * 2) * dt;
+  player.x += direction * speed;
+  player.y += verticalDirection * speed;
   player.x = Math.max(player.w / 2 + 8, Math.min(width - player.w / 2 - 8, player.x));
+  player.y = Math.max(player.h / 2 + 8, Math.min(height - player.h / 2 - 8, player.y));
 
   spawnTimer -= dt;
   if (spawnTimer <= 0) {
@@ -276,18 +282,23 @@ function gameLoop(time) {
 function setKey(code, active) {
   if (code === "ArrowLeft" || code === "KeyA") keys.left = active;
   if (code === "ArrowRight" || code === "KeyD") keys.right = active;
+  if (code === "ArrowUp" || code === "KeyW") keys.up = active;
+  if (code === "ArrowDown" || code === "KeyS") keys.down = active;
 }
 
 window.addEventListener("keydown", (event) => {
-  if (["ArrowLeft", "ArrowRight", "Space"].includes(event.code)) event.preventDefault();
+  if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Space"].includes(event.code)) {
+    event.preventDefault();
+  }
   setKey(event.code, true);
   if (event.code === "KeyP" || event.code === "Escape" || event.code === "Space") togglePause();
 });
 
 window.addEventListener("keyup", (event) => setKey(event.code, false));
 window.addEventListener("blur", () => {
-  keys.left = false;
-  keys.right = false;
+  Object.keys(keys).forEach((direction) => {
+    keys[direction] = false;
+  });
   if (running && !paused) togglePause();
 });
 
@@ -311,6 +322,8 @@ function bindHold(button, direction) {
 
 bindHold(leftButton, "left");
 bindHold(rightButton, "right");
+bindHold(upButton, "up");
+bindHold(downButton, "down");
 
 startButton.addEventListener("click", () => {
   if (running && paused) togglePause();

@@ -196,15 +196,19 @@ h1 {
 .controls {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: clamp(8px, 2vw, 14px);
   height: 76px;
 }
 
 .controls p {
+  margin: 0;
   color: var(--muted);
   font-family: "DM Mono", monospace;
   font-size: 9px;
   letter-spacing: 0.08em;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .controls p span {
@@ -246,6 +250,15 @@ h1 {
 
   .controls {
     height: 68px;
+  }
+
+  .control-button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .controls p {
+    font-size: 8px;
   }
 }
 
