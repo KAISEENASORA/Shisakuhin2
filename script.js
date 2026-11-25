@@ -203,18 +203,20 @@ function drawPlayer() {
   ctx.fillStyle = "#ffdf64";
   ctx.beginPath();
   ctx.moveTo(0, -18);
-  ctx.lineTo(15, 12);
-  ctx.lineTo(7, 17);
-  ctx.lineTo(0, 12);
-  ctx.lineTo(-7, 17);
-  ctx.lineTo(-15, 12);
+  ctx.lineTo(5, -5);
+  ctx.lineTo(18, 0);
+  ctx.lineTo(5, 5);
+  ctx.lineTo(0, 18);
+  ctx.lineTo(-5, 5);
+  ctx.lineTo(-18, 0);
+  ctx.lineTo(-5, -5);
   ctx.closePath();
   ctx.fill();
 
   ctx.shadowBlur = 0;
   ctx.fillStyle = "#090b16";
   ctx.beginPath();
-  ctx.arc(0, -2, 4, 0, Math.PI * 2);
+  ctx.arc(0, 0, 3, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
 }
