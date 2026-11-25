@@ -45,7 +45,7 @@ function resize() {
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
   if (!player) {
-    player = { x: width / 2, y: height - 70, w: 34, h: 34 };
+    player = { x: width / 2, y: height - 70, w: 34, h: 34, angle: 0 };
   } else {
     player.x = Math.max(player.w / 2, Math.min(width - player.w / 2, player.x));
     player.y = Math.max(player.h / 2, Math.min(height - player.h / 2, player.y));
@@ -59,7 +59,7 @@ function resetGame() {
   elapsed = 0;
   spawnTimer = 0;
   score = 0;
-  player = { x: width / 2, y: height - 70, w: 34, h: 34 };
+  player = { x: width / 2, y: height - 70, w: 34, h: 34, angle: 0 };
   scoreElement.textContent = "00000";
 }
 
@@ -136,6 +136,7 @@ function spawnObstacle() {
 
 function update(dt) {
   elapsed += dt;
+  player.angle += dt * 4;
   score += dt * 10;
   scoreElement.textContent = formatScore(score);
 
@@ -197,6 +198,7 @@ function update(dt) {
 function drawPlayer() {
   ctx.save();
   ctx.translate(player.x, player.y);
+  ctx.rotate(player.angle);
 
   ctx.shadowColor = "rgba(255, 223, 100, 0.32)";
   ctx.shadowBlur = 18;
