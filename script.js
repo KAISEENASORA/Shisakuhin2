@@ -14,6 +14,7 @@ const rightButton = document.getElementById("rightButton");
 const upButton = document.getElementById("upButton");
 const downButton = document.getElementById("downButton");
 
+const GOAL_TIME = 60;
 const keys = { left: false, right: false, up: false, down: false };
 let width = 0;
 let height = 0;
@@ -92,7 +93,7 @@ function togglePause() {
   }
 }
 
-function endGame() {
+function endGame(won = false) {
   running = false;
   paused = false;
   cancelAnimationFrame(animationId);
@@ -101,10 +102,12 @@ function endGame() {
   localStorage.setItem("skyfall-best", String(best));
   bestElement.textContent = formatScore(best);
 
-  overlayEyebrow.textContent = "RUN OVER";
-  overlayTitle.textContent = "HIT";
-  overlayText.textContent = `You scored ${formatScore(score)} points.`;
-  startButton.innerHTML = "TRY AGAIN <span>→</span>";
+  overlayEyebrow.textContent = won ? "GOAL REACHED" : "RUN OVER";
+  overlayTitle.textContent = won ? "CLEAR!" : "HIT";
+  overlayText.textContent = won
+    ? `You survived for ${GOAL_TIME} seconds and scored ${formatScore(score)} points.`
+    : `You scored ${formatScore(score)} points.`;
+  startButton.innerHTML = won ? "PLAY AGAIN <span>→</span>" : "TRY AGAIN <span>→</span>";
   overlay.classList.remove("hidden");
 }
 
@@ -185,6 +188,11 @@ function update(dt) {
     ) {
       obstacles.splice(i, 1);
     }
+  }
+
+  if (elapsed >= GOAL_TIME) {
+    endGame(true);
+    return;
   }
 
   particles.forEach((particle) => {
